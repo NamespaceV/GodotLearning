@@ -2,30 +2,52 @@ extends Node2D
 
 var tura: int = 0
 var walka: int = 1
-
-var name1: String = "tank"
-var hp1:int = 20
-var dice1d:int = 20
-var dice1cnt:int = 1
-
-var name2: String = "ranger"
-var hp2:int = 10
-var dice2d:int = 6
-var dice2cnt:int = 2
-
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+
+class Hero:
+	var name: String
+	var hp: int
+	var diceCnt: int
+	var diceSize: int
+	var r: RandomNumberGenerator
+	func isDead() -> bool:
+		return hp <= 0
+	func write() -> String:
+		return name + " [ " + str(hp) + " ]"
+	func deadDmg() -> int:
+		var dmg = 0
+		for i in range(diceCnt):
+			dmg += r.randi_range(1,diceSize)
+		return dmg
+	func takeDmg(d:int):
+		hp -= d
+	
+static func createTank(rng : RandomNumberGenerator) -> Hero: 
+	var h:Hero = Hero.new()
+	h.r = rng
+	h.name = "tank"
+	h.hp = 20
+	h.diceSize = 20
+	h.diceCnt = 1
+	return h
+	
+static func createRanger(rng : RandomNumberGenerator) -> Hero: 
+	var h:Hero = Hero.new()
+	h.r = rng
+	h.name = "ranger"
+	h.hp = 10
+	h.diceSize = 6
+	h.diceCnt = 2
+	return h
+	
+var h1:Hero
+var h2:Hero
+
 var textLabel : RichTextLabel
 
-func reset():
-	name1 = "tank"
-	hp1 = 20
-	dice1d = 20
-	dice1cnt = 1
-	name2 = "ranger"
-	hp2 = 10
-	dice2d = 6
-	dice2cnt = 2
-
+func resetHeroes():
+	h1 = createTank(rng)
+	h2 = createRanger(rng)
 
 func _ready():
 	for child in get_children():
@@ -33,39 +55,34 @@ func _ready():
 			textLabel = child
 			textLabel.scroll_following = true
 	wypisz("Nacisnij WSAD <^v> żeby walczyć")
-	reset()
-	
+	resetHeroes()
 
 func wypisz(text: String):
 	print(text)
 	textLabel.append_text("\n"+text)
 
 func next_turn():
-	if hp1 < 0 || hp2 < 0:
-		reset()
+	if h1.isDead() || h2.isDead():
+		resetHeroes()
 		walka += 1
 		wypisz(">>>>>>>>>>>>>>>>>>>>>>>>>>>>> nowa walka //" + str(walka)+"//")
 		tura = 0
 	tura += 1
 	wypisz(">> tura " + str(tura))
-	wypisz(name1 + " ["+ str(hp1) + "]"+"   vs  "+ name2+ " ["+str(hp2)+"]")
-	var dmg1 = 0
-	for i in range(dice1cnt):
-		dmg1 += rng.randi_range(1,dice1d)
-	var dmg2 = 0
-	for i in range(dice2cnt):
-		dmg2 += rng.randi_range(1,dice2d)
-	wypisz(name1+" zadal "+ str(dmg1)+" obrazen")
-	wypisz(name2+" zadal "+ str(dmg2)+" obrazen")
-	hp2 -= dmg1
-	hp1 -= dmg2
-	wypisz("Now: "+name1+"["+str(hp1)+"]"+"  --  "+ name2+ "["+str(hp2)+"]")
-	if  hp1 < 0 && hp2 < 0:
+	wypisz(h1.write() +"   vs  "+ h2.write())
+	var dmg1 = h1.deadDmg()
+	var dmg2 = h2.deadDmg()
+	wypisz(h1.name + "        >>      " + str(dmg1) + " dmg")
+	wypisz(str(dmg2) + " dmg        <<      " + h2.name )
+	h1.takeDmg(dmg2)
+	h2.takeDmg(dmg1)
+	wypisz("Now: " + h1.write() + "  --  " + h2.write())
+	if   h1.isDead() && h2.isDead():
 		wypisz(" ========================== REMIS =================== ")
-	elif hp1 < 0:
-		wypisz(" ========================== WYGRAL "+name2+" =================== ")
-	elif hp2 < 0:
-		wypisz(" ========================== WYGRAL "+name1+" =================== ")
+	elif h1.isDead():
+		wypisz(" ========================== WYGRAL "+h2.name+" =================== ")
+	elif h2.isDead():
+		wypisz(" ========================== WYGRAL "+h1.name+" =================== ")
 
 func _process(_delta):
 	for i in ["ui_left", "ui_right", "ui_up","ui_down"]:
