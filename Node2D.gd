@@ -59,7 +59,8 @@ func _ready():
 
 func wypisz(text: String):
 	print(text)
-	textLabel.append_text("\n"+text)
+	if textLabel != null:
+		textLabel.append_text("\n"+text)
 
 func next_turn():
 	if h1.isDead() || h2.isDead():
