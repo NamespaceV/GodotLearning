@@ -2,21 +2,32 @@ extends Object
 
 class_name HeroClasses
 
+enum Spell {
+	None,
+	Freeze,
+	Heal,
+}
+
 class Hero:
 	var name: String
 	var hp: int
 	var baseDiceCnt: int
 	var diceSize: int
-	var isMage: bool
+	var spell: Spell
 	var r: RandomNumberGenerator
 	func isDead() -> bool:
 		return hp <= 0
 	func write() -> String:
 		return name + " [ " + str(hp) + " ]"
+	func castBeforeBattle() -> String:
+		if (spell == Spell.Heal):
+			hp += 2
+			return name + " healed 2 damage"
+		return ""
 	func deadDmg(opponent: Hero) -> int:
 		var dmg = 0
 		var diceCnt = baseDiceCnt
-		if (opponent.isMage):
+		if (opponent.spell == Spell.Freeze):
 			diceCnt -= 1
 		for i in range(diceCnt):
 			dmg += r.randi_range(1,diceSize)
@@ -24,6 +35,8 @@ class Hero:
 		return dmg
 	func takeDmg(d:int):
 		hp -= d
+	func roundEnd() -> void:
+		pass
 
 static func createTank(rng : RandomNumberGenerator) -> HeroClasses.Hero: 
 	var h:HeroClasses.Hero = HeroClasses.Hero.new()
@@ -43,14 +56,24 @@ static func createRanger(rng : RandomNumberGenerator) -> HeroClasses.Hero:
 	h.baseDiceCnt = 2
 	return h
 
-static func createMage(rng : RandomNumberGenerator) -> HeroClasses.Hero: 
+static func createFrostMage(rng : RandomNumberGenerator) -> HeroClasses.Hero: 
 	var h:HeroClasses.Hero = HeroClasses.Hero.new()
 	h.r = rng
-	h.name = "mage"
+	h.name = "frost mage"
 	h.hp = 6
 	h.diceSize = 4
 	h.baseDiceCnt = 1
-	h.isMage = true
+	h.spell = Spell.Freeze
+	return h
+
+static func createCleric(rng : RandomNumberGenerator) -> HeroClasses.Hero: 
+	var h:HeroClasses.Hero = HeroClasses.Hero.new()
+	h.r = rng
+	h.name = "cleric"
+	h.hp = 6
+	h.diceSize = 4
+	h.baseDiceCnt = 1
+	h.spell = Spell.Heal
 	return h
 
 

@@ -10,8 +10,8 @@ var h2:HeroClasses.Hero
 @onready var textLabel : RichTextLabel = $MainText as RichTextLabel
 
 func resetHeroes():
-	h1 = HeroClasses.createTank(rng)
-	h2 = HeroClasses.createRanger(rng)
+	h1 = HeroClasses.createFrostMage(rng)
+	h2 = HeroClasses.createCleric(rng)
 
 func _ready():
 	wypisz("Nacisnij WSAD <^v> żeby walczyć")
@@ -31,8 +31,17 @@ func next_turn():
 	tura += 1
 	wypisz(">> tura " + str(tura))
 	wypisz(h1.write() +"   vs  "+ h2.write())
+	var before = h1.castBeforeBattle();
+	if before != "":
+		wypisz(before);
+	before = h2.castBeforeBattle();
+	if before != "":
+		wypisz(before);
+	
 	var dmg1 = h1.deadDmg(h2)
 	var dmg2 = h2.deadDmg(h1)
+	h1.roundEnd();
+	h2.roundEnd();
 	wypisz(h1.name + "        >>      " + str(dmg1) + " dmg")
 	wypisz(str(dmg2) + " dmg        <<      " + h2.name )
 	wypisz("Now: " + h1.write() + "  --  " + h2.write())
