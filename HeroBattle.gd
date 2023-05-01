@@ -9,9 +9,37 @@ var h2:HeroClasses.Hero
 
 @onready var textLabel : RichTextLabel = $MainText as RichTextLabel
 
+@onready var leftNameLabel : RichTextLabel = $Left/Name as RichTextLabel
+@onready var leftHpLabel : RichTextLabel = $Left/Hp as RichTextLabel
+@onready var leftImage : Sprite2D = $Left/Image as Sprite2D
+
+@onready var rightHpLabel : RichTextLabel = $Right/Hp as RichTextLabel
+@onready var rightNameLabel : RichTextLabel = $Right/Name as RichTextLabel
+@onready var rightImage : Sprite2D = $Right/Image as Sprite2D
+
+func getTexture(n:String):
+#	assets source:
+#	https://opengameart.org/content/cute-cleric
+#	https://opengameart.org/content/soulless-mage
+#	https://opengameart.org/content/cute-warrior
+
+	match n:
+		"frost mage":
+			return preload("res://Assets/mage.png")
+		"cleric":
+			return preload("res://Assets/priest.png")
+		_:
+			return preload("res://Assets/Warrior.png")
+
 func resetHeroes():
-	h1 = HeroClasses.createFrostMage(rng)
-	h2 = HeroClasses.createCleric(rng)
+	h1 = HeroClasses.createRandom(rng)
+	h2 = HeroClasses.createRandom(rng)
+	leftNameLabel.text = h1.name
+	leftImage.texture = getTexture(h1.name)
+	rightNameLabel.text = h2.name
+	rightImage.texture = getTexture(h2.name)
+	leftHpLabel.text  = "DEAD" if h1.isDead() else str(h1.hp);
+	rightHpLabel.text = "DEAD" if h2.isDead() else str(h2.hp);
 
 func _ready():
 	wypisz("Nacisnij WSAD <^v> żeby walczyć")
@@ -42,6 +70,9 @@ func next_turn():
 	var dmg2 = h2.deadDmg(h1)
 	h1.roundEnd();
 	h2.roundEnd();
+	leftHpLabel.text  = "DEAD" if h1.isDead() else str(h1.hp);
+	rightHpLabel.text = "DEAD" if h2.isDead() else str(h2.hp);
+	
 	wypisz(h1.name + "        >>      " + str(dmg1) + " dmg")
 	wypisz(str(dmg2) + " dmg        <<      " + h2.name )
 	wypisz("Now: " + h1.write() + "  --  " + h2.write())

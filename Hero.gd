@@ -38,6 +38,17 @@ class Hero:
 	func roundEnd() -> void:
 		pass
 
+static func createRandom(rng : RandomNumberGenerator) -> HeroClasses.Hero:
+	match rng.randi_range(1,4):
+		1:
+			return createTank(rng)
+		2:
+			return createRanger(rng)
+		3:
+			return createFrostMage(rng)
+		_:
+			return createCleric(rng)
+
 static func createTank(rng : RandomNumberGenerator) -> HeroClasses.Hero: 
 	var h:HeroClasses.Hero = HeroClasses.Hero.new()
 	h.r = rng
