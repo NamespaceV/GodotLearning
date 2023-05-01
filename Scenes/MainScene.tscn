@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://4ljua2hro56y"]
+
+[ext_resource type="Script" path="res://HeroBattle.gd" id="1_81gfc"]
+
+[node name="SceneRoot" type="Node2D"]
+
+[node name="BattleSimNode" type="Node2D" parent="."]
+script = ExtResource("1_81gfc")
+
+[node name="MainText" type="RichTextLabel" parent="BattleSimNode"]
+offset_right = 1153.0
+offset_bottom = 660.0
+text = "Lore ipsum"
+scroll_following = true
