@@ -6,7 +6,7 @@ extends Node
 @export var summons: Array[Being]
 
 var inputs: Array[String] = [ "ui_up", "ui_right", "ui_down", "ui_left"]
-var input_names: Array[String] = ["up", "right", "down", "left"  ]
+var input_names: Array[String] = ["up   ", "right", "down ", "left "  ]
 
 var enemy: Being = null
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -32,7 +32,7 @@ func wypisz(text: String):
 func wypiszSummony():
 	var i = 0
 	for s in summons:
-		wypisz(input_names[i] + " > " + s.name)
+		wypisz("    [ " + input_names[i] + " ] ->  " + s.name)
 		i += 1
 
 func next_turn(input:String = ""):
@@ -41,6 +41,8 @@ func next_turn(input:String = ""):
 		input = ""
 	
 	if input == "":
+		wypisz("")
+		wypisz("")
 		wypisz("🥬🥬🥬🥬🥬🥬🥬🥬🥬🥬🥬🥬🥬🥬🥬")
 		wypisz(" ================== wild " + enemy.name + " appears")
 		wypisz("🥬🥬🥬🥬🥬🥬🥬🥬🥬🥬🥬🥬🥬🥬🥬")
@@ -52,6 +54,8 @@ func next_turn(input:String = ""):
 	if not (inputId >= 0 && inputId < summons.size()):
 		wypisz("chosen: nothing")
 		wypisz("wild " + enemy.name + " is stil there")
+		wypisz("choose wisely")
+		wypiszSummony()
 		return
 
 	var summon = summons[inputId]
@@ -66,5 +70,6 @@ func next_turn(input:String = ""):
 		wypisz("😱😱😱😱😱😱😱😱😱😱😱😱😱😱😱")
 		wypisz("enemy : " + enemy.name + " Is too strong")
 		wypisz("😱😱😱😱😱😱😱😱😱😱😱😱😱😱😱")
+		wypisz("choose a different summon")
 		wypiszSummony()
 	
