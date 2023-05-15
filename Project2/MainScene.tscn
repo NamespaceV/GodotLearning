@@ -1,0 +1,22 @@
+[gd_scene load_steps=8 format=3 uid="uid://clae1u8ke6i8d"]
+
+[ext_resource type="Script" path="res://GameScript.gd" id="1_34b7n"]
+[ext_resource type="Resource" uid="uid://b4ax76ycynrtv" path="res://Enemies/Enemy1.tres" id="2_6mn3p"]
+[ext_resource type="Resource" uid="uid://c63f1kmtrup14" path="res://Enemies/Enemy2.tres" id="3_vdate"]
+[ext_resource type="Resource" uid="uid://cvkxjqflgt1li" path="res://Enemies/Enemy3.tres" id="4_ruucj"]
+[ext_resource type="Resource" uid="uid://d27swgspyasvw" path="res://Summons/Ally3.tres" id="5_b2j40"]
+[ext_resource type="Resource" uid="uid://ciiklau2ii3ts" path="res://Summons/Ally1.tres" id="6_g142a"]
+[ext_resource type="Resource" uid="uid://dbjjto4l0247p" path="res://Summons/Ally2.tres" id="7_2ip2q"]
+
+[node name="MainScene" type="Node2D"]
+
+[node name="GameScript" type="Node2D" parent="." node_paths=PackedStringArray("textLabel")]
+script = ExtResource("1_34b7n")
+textLabel = NodePath("RichTextLabel")
+enemies = Array[Resource("res://Being.gd")]([ExtResource("2_6mn3p"), ExtResource("3_vdate"), ExtResource("4_ruucj")])
+summons = Array[Resource("res://Being.gd")]([ExtResource("6_g142a"), ExtResource("7_2ip2q"), ExtResource("5_b2j40")])
+
+[node name="RichTextLabel" type="RichTextLabel" parent="GameScript"]
+offset_right = 1153.0
+offset_bottom = 646.0
+scroll_following = true

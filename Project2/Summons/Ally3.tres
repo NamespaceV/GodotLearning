@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Being" load_steps=2 format=3 uid="uid://d27swgspyasvw"]
+
+[ext_resource type="Script" path="res://Being.gd" id="1_2ynxf"]
+
+[resource]
+script = ExtResource("1_2ynxf")
+name = "Patronus"
+strength = 10000

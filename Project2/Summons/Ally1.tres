@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Being" load_steps=2 format=3 uid="uid://ciiklau2ii3ts"]
+
+[ext_resource type="Script" path="res://Being.gd" id="1_e0e4t"]
+
+[resource]
+script = ExtResource("1_e0e4t")
+name = "Magikarp"
+strength = 5

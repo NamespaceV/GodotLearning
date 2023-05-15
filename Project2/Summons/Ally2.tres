@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Being" load_steps=2 format=3 uid="uid://dbjjto4l0247p"]
+
+[ext_resource type="Script" path="res://Being.gd" id="1_oexo5"]
+
+[resource]
+script = ExtResource("1_oexo5")
+name = "Chocobo"
+strength = 70
