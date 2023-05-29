@@ -1,6 +1,8 @@
 extends Node
 
 @export var textLabel : RichTextLabel
+@export var uciekajButton : Button
+@export var zostanButton : Button
 
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
@@ -20,6 +22,14 @@ var TurnTimeLeft : float = TurnTime
 
 func _ready():
 	nowaLokacja()
+	uciekajButton.pressed.connect(pressedUciekaj)
+	zostanButton.pressed.connect(pressedZostan)
+
+func pressedUciekaj():
+	yourChoiceId = 1
+
+func pressedZostan():
+	yourChoiceId = 0
 
 func _process(_delta):
 	Up = Input.is_action_just_pressed("ui_up")

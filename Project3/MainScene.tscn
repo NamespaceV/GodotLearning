@@ -29,12 +29,28 @@ enemyTime = 4
 
 [node name="MainScene" type="Node2D"]
 
-[node name="GameScript" type="Node2D" parent="." node_paths=PackedStringArray("textLabel")]
+[node name="GameScript" type="Node2D" parent="." node_paths=PackedStringArray("textLabel", "uciekajButton", "zostanButton")]
 script = ExtResource("1_34b7n")
 textLabel = NodePath("RichTextLabel")
+uciekajButton = NodePath("UciekajButton")
+zostanButton = NodePath("ZostanButton")
 rooms = Array[ExtResource("2_p5wdg")]([SubResource("Resource_n5px2"), SubResource("Resource_l4upn"), SubResource("Resource_8vykj")])
 
 [node name="RichTextLabel" type="RichTextLabel" parent="GameScript"]
 offset_right = 1153.0
-offset_bottom = 646.0
+offset_bottom = 552.0
 text = "asdasd"
+
+[node name="UciekajButton" type="Button" parent="GameScript"]
+offset_left = 51.0
+offset_top = 568.0
+offset_right = 162.0
+offset_bottom = 618.0
+text = "Uciekaj"
+
+[node name="ZostanButton" type="Button" parent="GameScript"]
+offset_left = 190.0
+offset_top = 570.0
+offset_right = 301.0
+offset_bottom = 620.0
+text = "Zostan"
