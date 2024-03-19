@@ -1,0 +1,127 @@
+[gd_scene load_steps=2 format=3 uid="uid://chgltfkim3st7"]
+
+[ext_resource type="Script" path="res://Multiplayer/MultiplayerController.gd" id="1_cnl2c"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="MultiplayerController" type="Node" parent="."]
+script = ExtResource("1_cnl2c")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MultiplayerController"]
+offset_left = 99.0
+offset_top = 47.0
+offset_right = 383.0
+offset_bottom = 503.0
+text = "asd"
+
+[node name="CheckIpButton" type="Button" parent="MultiplayerController"]
+offset_left = 6.0
+offset_top = 550.0
+offset_right = 79.0
+offset_bottom = 602.0
+scale = Vector2(1, 1.06397)
+text = "check ip"
+
+[node name="ServerButton" type="Button" parent="MultiplayerController"]
+offset_left = 110.0
+offset_top = 550.0
+offset_right = 183.0
+offset_bottom = 602.0
+text = "server"
+
+[node name="ClientButton" type="Button" parent="MultiplayerController"]
+offset_left = 207.0
+offset_top = 550.0
+offset_right = 280.0
+offset_bottom = 602.0
+text = "client"
+
+[node name="ActionButton" type="Button" parent="MultiplayerController"]
+offset_left = 391.0
+offset_top = 542.0
+offset_right = 470.0
+offset_bottom = 594.0
+text = "Send message"
+
+[node name="LineTextBox" type="LineEdit" parent="MultiplayerController"]
+offset_left = 146.0
+offset_top = 496.0
+offset_right = 1064.0
+offset_bottom = 527.0
+
+[node name="NickTextBox" type="LineEdit" parent="MultiplayerController"]
+offset_left = 7.0
+offset_top = 497.0
+offset_right = 134.0
+offset_bottom = 528.0
+
+[node name="Label" type="Label" parent="MultiplayerController"]
+offset_left = 10.0
+offset_top = 472.0
+offset_right = 50.0
+offset_bottom = 495.0
+text = "nick
+"
+
+[node name="IpPopup" type="Window" parent="MultiplayerController"]
+title = "Ip check"
+position = Vector2i(100, 46)
+size = Vector2i(300, 500)
+visible = false
+
+[node name="Label" type="RichTextLabel" parent="MultiplayerController/IpPopup"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "azsdasdasdasdeadsa
+ferwsfsd
+fr
+wefwdesd
+fr"
+
+[node name="ConnectPopup" type="Window" parent="MultiplayerController"]
+title = "Client connect"
+position = Vector2i(100, 100)
+size = Vector2i(400, 300)
+visible = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MultiplayerController/ConnectPopup"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MultiplayerController/ConnectPopup/VBoxContainer"]
+layout_mode = 2
+text = "Server:"
+
+[node name="ServerLineEdit" type="LineEdit" parent="MultiplayerController/ConnectPopup/VBoxContainer"]
+layout_mode = 2
+text = "localhost"
+
+[node name="Label2" type="Label" parent="MultiplayerController/ConnectPopup/VBoxContainer"]
+layout_mode = 2
+text = "Port
+"
+
+[node name="PortLineEdit" type="LineEdit" parent="MultiplayerController/ConnectPopup/VBoxContainer"]
+layout_mode = 2
+text = "12212"
+
+[node name="ConnectButton" type="Button" parent="MultiplayerController/ConnectPopup/VBoxContainer"]
+layout_mode = 2
+text = "Connect"
+
+[connection signal="pressed" from="MultiplayerController/CheckIpButton" to="MultiplayerController" method="_on_check_ip_button_pressed"]
+[connection signal="pressed" from="MultiplayerController/ServerButton" to="MultiplayerController" method="onServerClicked"]
+[connection signal="pressed" from="MultiplayerController/ClientButton" to="MultiplayerController" method="onClientClicked"]
+[connection signal="pressed" from="MultiplayerController/ActionButton" to="MultiplayerController" method="onSayHelloClicked"]
+[connection signal="close_requested" from="MultiplayerController/IpPopup" to="MultiplayerController" method="_on_ip_popup_close_requested"]
+[connection signal="close_requested" from="MultiplayerController/ConnectPopup" to="MultiplayerController" method="_on_connect_popup_close_requested"]
+[connection signal="pressed" from="MultiplayerController/ConnectPopup/VBoxContainer/ConnectButton" to="MultiplayerController" method="_on_connect_button_pressed"]

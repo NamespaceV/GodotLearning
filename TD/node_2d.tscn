@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnsxcneneja6f"]
+
+[ext_resource type="Script" path="res://Panel.gd" id="1_v4xke"]
+[ext_resource type="Script" path="res://Button.gd" id="2_jq1sn"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 89.0
+offset_top = 78.0
+offset_right = 171.0
+offset_bottom = 118.0
+script = ExtResource("1_v4xke")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 39.0
+text = "dgfxghdf"
+
+[node name="Button" type="Button" parent="."]
+offset_left = 273.0
+offset_top = 171.0
+offset_right = 363.0
+offset_bottom = 202.0
+text = "dasdasdas"
+script = ExtResource("2_jq1sn")
