@@ -1,7 +1,7 @@
 extends Node
 
-var PORT = 12212
-var IP_ADDRESS = "localhost"
+var DEFAULT_PORT = 12212
+var DEFAULT_SERVER = "localhost"
 var MAX_CLIENTS = 4
 
 @onready
@@ -51,11 +51,13 @@ func _on_ip_popup_close_requested():
 
 func onServerClicked():
 	var peer = ENetMultiplayerPeer.new()
-	peer.create_server(PORT, MAX_CLIENTS)
+	peer.create_server(DEFAULT_PORT, MAX_CLIENTS)
 	multiplayer.multiplayer_peer = peer
-	label.text = "server opened on port "+str(PORT)
+	label.text = "server opened on port "+str(DEFAULT_PORT)
 	$ServerButton.disabled = true
 	$ClientButton.visible = false
+	multiplayer.peer_connected.connect(peerConnected)
+	multiplayer.peer_disconnected.connect(peer_disconnected)
 
 # client
 
@@ -76,6 +78,15 @@ func _on_connect_button_pressed():
 	label.text += "\nconnected (" + str(connResult) + ")"
 	$ClientButton.disabled = true
 	$ServerButton.visible = false
+	multiplayer.peer_connected.connect(peerConnected)
+	multiplayer.peer_disconnected.connect(peer_disconnected)
+
+func peerConnected(id:int):
+	label.text += "\nPeer connected id ="+str(id)
+
+func peer_disconnected(id:int):
+	label.text += "\nPeer disconnected id ="+str(id)
+	
 
 #rpcs
 
