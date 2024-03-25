@@ -118,6 +118,10 @@ text = "12212"
 layout_mode = 2
 text = "Connect"
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://MouseIndicator/mouse_indicator.tscn")
+spawn_path = NodePath("..")
+
 [connection signal="pressed" from="MultiplayerController/CheckIpButton" to="MultiplayerController" method="_on_check_ip_button_pressed"]
 [connection signal="pressed" from="MultiplayerController/ServerButton" to="MultiplayerController" method="onServerClicked"]
 [connection signal="pressed" from="MultiplayerController/ClientButton" to="MultiplayerController" method="onClientClicked"]

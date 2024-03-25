@@ -58,6 +58,7 @@ func onServerClicked():
 	$ClientButton.visible = false
 	multiplayer.peer_connected.connect(peerConnected)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
+	spawnMouseIndicator(multiplayer.get_unique_id())
 
 # client
 
@@ -80,9 +81,11 @@ func _on_connect_button_pressed():
 	$ServerButton.visible = false
 	multiplayer.peer_connected.connect(peerConnected)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
+	spawnMouseIndicator(multiplayer.get_unique_id())
 
 func peerConnected(id:int):
 	label.text += "\nPeer connected id ="+str(id)
+	spawnMouseIndicator(id)
 
 func peer_disconnected(id:int):
 	label.text += "\nPeer disconnected id ="+str(id)
@@ -99,3 +102,9 @@ func chatMessageRpc(nick: String, text: String):
 	label.text += "\n"+"[" + nick +"]"+text +\
 		"\n... from id /"+str(multiplayer.get_remote_sender_id())
 
+func spawnMouseIndicator(id):
+	var s = load("res://MouseIndicator/mouse_indicator.tscn")
+	var i = s.instantiate(id)
+	i.name = "mouse_" + str(id)
+	i.set_multiplayer_authority(id)
+	get_tree().root.add_child(i)
